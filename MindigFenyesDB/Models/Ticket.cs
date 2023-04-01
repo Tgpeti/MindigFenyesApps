@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MindigFenyesDB.Models
 {
-	public class Ticket
+    public class Ticket
 	{
 		public int Id { get; set; }
 		public int AddressId { get; set; }
