@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindigFenyesDB", "MindigFen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindigFenyesWebApp", "MindigFenyesWebApp\MindigFenyesWebApp.csproj", "{1D694EEC-CFEC-4C22-8A34-9D49C5A15C05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindigFenyesTicketClosingApp", "MindigFenyesTicketClosingApp\MindigFenyesTicketClosingApp.csproj", "{3B77EDB9-6CAB-48C9-8FAC-64812491AEBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MindigFenyesBusinessLogic", "MindigFenyesBusinessLogic\MindigFenyesBusinessLogic.csproj", "{E8C6E421-DC91-4351-9BC0-310B3DF23598}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{1D694EEC-CFEC-4C22-8A34-9D49C5A15C05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D694EEC-CFEC-4C22-8A34-9D49C5A15C05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D694EEC-CFEC-4C22-8A34-9D49C5A15C05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B77EDB9-6CAB-48C9-8FAC-64812491AEBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B77EDB9-6CAB-48C9-8FAC-64812491AEBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B77EDB9-6CAB-48C9-8FAC-64812491AEBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B77EDB9-6CAB-48C9-8FAC-64812491AEBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8C6E421-DC91-4351-9BC0-310B3DF23598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8C6E421-DC91-4351-9BC0-310B3DF23598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8C6E421-DC91-4351-9BC0-310B3DF23598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8C6E421-DC91-4351-9BC0-310B3DF23598}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
