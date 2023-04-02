@@ -13,10 +13,10 @@ namespace MindigFenyesDB.Models
 		public virtual Address Address { get; set; } = null!;
 		public DateTime StartDate { get; set; }
 		public bool IsFinished { get; set; }
-		public int WorkerId { get; set; }
+		public int? WorkerId { get; set; }
 		public  virtual Worker? Worker { get; set; }
-		public DateTime FinishDate { get; set; }
-		public Issue Issue { get; set; }
+		public DateTime? FinishDate { get; set; }
+		public Issue? Issue { get; set; }
 
 
 	}

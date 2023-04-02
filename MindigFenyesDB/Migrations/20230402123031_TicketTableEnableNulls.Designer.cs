@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MindigFenyesDB.Data;
 
@@ -11,9 +12,10 @@ using MindigFenyesDB.Data;
 namespace MindigFenyesDB.Migrations
 {
     [DbContext(typeof(MindigFenyesContext))]
-    partial class MindigFenyesContextModelSnapshot : ModelSnapshot
+    [Migration("20230402123031_TicketTableEnableNulls")]
+    partial class TicketTableEnableNulls
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
