@@ -10,6 +10,9 @@ namespace MindigFenyesDB.Data
 {
 	public class MindigFenyesContext :DbContext
 	{
+		public MindigFenyesContext(DbContextOptions options) : base(options)
+		{
+		}
 		public DbSet<Ticket> Tickets { get; set; }
 		public DbSet<Address> Addresses { get; set; }
 		public DbSet<Worker> Workers { get; set; }

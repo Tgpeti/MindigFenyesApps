@@ -1,0 +1,21 @@
+﻿@model TicketAddressViewModel
+@{}
+
+@*<h3>Hello ide jön a form?</h3>*@
+
+
+<form method="Post" action="/TicketAddress/Submit">
+  <div class="mb-3">
+    <label for="" class="form-label">Irányítószám</label>
+    <input type="number" class="form-control" asp-for="ZipCode">
+  </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Utca</label>
+        <input type="text" class="form-control" asp-for="StreetName">
+    </div>
+    <div class="mb-3">
+        <label for="" class="form-label">Házszám</label>
+        <input type="number" class="form-control" asp-for="HouseNumber">
+    </div>
+  <button type="submit" class="btn btn-primary">Véglegesít</button>
+</form>
