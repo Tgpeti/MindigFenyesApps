@@ -14,7 +14,7 @@ namespace MindigFenyesTicketClosingApp
             Console.WriteLine("kérlek add meg az azonosítószámod");
             int workerId = 0;
             List<Worker> workers =context.Workers.ToList();
-            while (!int.TryParse(Console.ReadLine(), out workerId) && workers.SingleOrDefault(m => m.Id == workerId,null) is null)
+            while (!int.TryParse(Console.ReadLine(), out workerId) || workers.SingleOrDefault(m => m.Id == workerId) is null)
             {
                 Console.WriteLine("Rossz azonosítót adtál meg, kérlek próbáld újra!");
             }
@@ -23,13 +23,30 @@ namespace MindigFenyesTicketClosingApp
             int ticketId = -1;
             while (ticketId != 0)
             {
-                List<Ticket> unfinishedTickets = context.Tickets.Where(t => t.IsFinished ==false).ToList();
-                while (!int.TryParse(Console.ReadLine(), out ticketId) && unfinishedTickets.SingleOrDefault(m => m.Id == ticketId, null) is null)
+                List<Ticket> unfinishedTickets = context.Tickets.Where(t => t.IsFinished == false).ToList();
+                while (!int.TryParse(Console.ReadLine(), out ticketId) || unfinishedTickets.SingleOrDefault(m => m.Id == ticketId) is null)
                 {
                     Console.WriteLine("Rossz sorszámot adtál meg, kérlek próbáld újra!");
                 }
-                Console.WriteLine("kérlek add meg a meghibásodás okát! (izzó, foglalat, vezeték, egyéb)");
-                //while(Console.ReadLine() )
+                Console.WriteLine("kérlek add meg a meghibásodás okát:");
+                Console.WriteLine("0  ---  Izzó");
+                Console.WriteLine("1  ---  Foglalat");
+                Console.WriteLine("2  ---  Vezetékek");
+                Console.WriteLine("3  ---  Egyéb");
+                int issueId;
+                
+                
+                while (!int.TryParse(Console.ReadLine(), out issueId) || issueId <0 || issueId >3)
+                {
+                    Console.WriteLine("Nem létező okot adtál meg!");
+                }
+                var ticketToClose = unfinishedTickets.Find(t => t.Id == ticketId);
+                ticketToClose!.IsFinished = true;
+                ticketToClose!.FinishDate = DateTime.Now;
+                ticketToClose!.WorkerId = workerId;
+                ticketToClose!.Issue = (Issue)issueId;
+                context.SaveChanges();
+                Console.WriteLine("további hibajegy lezárásához adja meg a sorszámát, vagy kilépés 0 megadásával:");
             }
 
         }
