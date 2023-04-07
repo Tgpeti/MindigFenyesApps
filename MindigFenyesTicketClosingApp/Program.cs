@@ -21,12 +21,17 @@ namespace MindigFenyesTicketClosingApp
             var worker = context.Workers.SingleOrDefault(m => m.Id == workerId);
             Console.WriteLine($"Kedves {worker!.Name}, add meg az általad elvégzett javítás sorszámát!");
             int ticketId = -1;
-            while (ticketId != 0)
+            while (true)
             {
                 List<Ticket> unfinishedTickets = context.Tickets.Where(t => t.IsFinished == false).ToList();
-                while (!int.TryParse(Console.ReadLine(), out ticketId) || unfinishedTickets.SingleOrDefault(m => m.Id == ticketId) is null)
+                while (!int.TryParse(Console.ReadLine(), out ticketId) || unfinishedTickets.SingleOrDefault(m => m.Id == ticketId) is null && ticketId != 0)
                 {
+
                     Console.WriteLine("Rossz sorszámot adtál meg, kérlek próbáld újra!");
+                }
+                if (ticketId ==0)
+                {
+                    break;
                 }
                 Console.WriteLine("kérlek add meg a meghibásodás okát:");
                 Console.WriteLine("0  ---  Izzó");
