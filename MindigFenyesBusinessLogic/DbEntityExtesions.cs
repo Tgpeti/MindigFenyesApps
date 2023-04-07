@@ -1,0 +1,18 @@
+﻿using MindigFenyesDB.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace MindigFenyesBusinessLogic
+{
+    public static class DbEntityExtesions
+    {
+        public static string GetIdAndAddress(this Ticket t)
+        {
+            return $"[{t.Id, -9}] - {t.Address.ZipCode}, {t.Address.StreetName} {t.Address.HouseNumber}]"; 
+        }
+    }
+}

@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MindigFenyesBusinessLogic\MindigFenyesBusinessLogic.csproj" />
     <ProjectReference Include="..\MindigFenyesDB\MindigFenyesDB.csproj" />
   </ItemGroup>
 
