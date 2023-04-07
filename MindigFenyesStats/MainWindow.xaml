@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Button" HorizontalAlignment="Left" Margin="530,61,0,0" VerticalAlignment="Top" Height="54" Width="148" Click="Button_Click"/>
-        <ListBox d:ItemsSource="{d:SampleData ItemCount=5}" Margin="44,200,470,47"/>
+        <ListBox Name="listBox2"  Margin="44,200,470,47"/>
         <Calendar Name ="calendar1" HorizontalAlignment="Left" Margin="290,23,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
         <ComboBox Name="ComboBox1" HorizontalAlignment="Left" Margin="44,61,0,0" VerticalAlignment="Top" Width="159" Height="43" SelectionChanged="ComboBox_SelectionChanged">
             <ComboBoxItem Content="Dolgozó"  />

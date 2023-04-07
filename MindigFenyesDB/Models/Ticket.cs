@@ -18,6 +18,10 @@ namespace MindigFenyesDB.Models
 		public DateTime? FinishDate { get; set; }
 		public Issue? Issue { get; set; }
 
+        public override string ToString()
+        {
+            return $"{Id} - - {Address.ZipCode}, {Address.StreetName} {Address.HouseNumber} - {Worker.Name} - {Issue}";
 
-	}
+        }
+    }
 }

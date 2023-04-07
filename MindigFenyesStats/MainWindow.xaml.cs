@@ -1,4 +1,6 @@
-﻿using MindigFenyesDB.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MindigFenyesDB.Data;
+using MindigFenyesBusinessLogic;
 using MindigFenyesDB.Models;
 using System;
 using System.Collections.Generic;
@@ -34,20 +36,17 @@ namespace MindigFenyesStats
             switch (ComboBox1.SelectedIndex)
             {
                 case 0:
-                    //Listbox1.Items.Clear();
                     calendar1.Visibility = Visibility.Hidden;
                     Listbox1.Visibility = Visibility.Visible;
                     Listbox1.ItemsSource = _context.Workers.Select(w => w.Name).ToList();
                     break;
                 case 1:
-                    //Listbox1.Items.Clear();
                     Listbox1.Visibility = Visibility.Hidden;
                     calendar1.Visibility = Visibility.Visible;
 
                     break;
 
                 case 2:
-                    //Listbox1.Items.Clear();
                     calendar1.Visibility = Visibility.Hidden;
                     Listbox1.Visibility = Visibility.Visible;
                     Listbox1.ItemsSource = Enum.GetValues(typeof(Issue)).Cast<Issue>().ToList();
@@ -62,7 +61,29 @@ namespace MindigFenyesStats
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Listbox1.ItemsSource = _context.Workers.Select(w => w.Name).ToList();
+            var closedTickets = _context.Tickets.Where(t => t.IsFinished).Include(t => t.Worker).Include(t => t.Address).ToList();
+            switch (ComboBox1.SelectedIndex)
+            {
+                case 0:
+                    string name = Listbox1.SelectedItem.ToString();
+
+                    var source = _context.Tickets.Where(t => t.Worker.Name == name).ToString().ToList();
+                    listBox2.ItemsSource = source;
+                    break;
+                case 1:
+                    Listbox1.Visibility = Visibility.Hidden;
+                    calendar1.Visibility = Visibility.Visible;
+
+                    break;
+
+                case 2:
+                    calendar1.Visibility = Visibility.Hidden;
+                    Listbox1.Visibility = Visibility.Visible;
+                    Listbox1.ItemsSource = Enum.GetValues(typeof(Issue)).Cast<Issue>().ToList();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace MindigFenyesDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Addresses", (string)null);
                 });
 
             modelBuilder.Entity("MindigFenyesDB.Models.Ticket", b =>
@@ -77,7 +77,7 @@ namespace MindigFenyesDB.Migrations
 
                     b.HasIndex("WorkerId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Tickets", (string)null);
                 });
 
             modelBuilder.Entity("MindigFenyesDB.Models.Worker", b =>
@@ -94,7 +94,7 @@ namespace MindigFenyesDB.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Workers");
+                    b.ToTable("Workers", (string)null);
                 });
 
             modelBuilder.Entity("MindigFenyesDB.Models.Ticket", b =>
