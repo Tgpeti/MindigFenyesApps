@@ -12,6 +12,12 @@ namespace MindigFenyesDB
             //AddWorker("Citrom Cecil");
             //AddWorker("Dió Dániel");
             //AddWorker("Eper Elemér");
+            using (var context = new MindigFenyesContext())
+            {
+                var ticketToDel = context.Addresses.Find(1002);
+                context.Addresses.Remove(ticketToDel);
+                context.SaveChanges();
+            }
 
             void AddWorker(string name)
             {

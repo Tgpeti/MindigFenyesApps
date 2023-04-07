@@ -20,7 +20,7 @@ namespace MindigFenyesTicketClosingApp
             }
             var worker = context.Workers.SingleOrDefault(m => m.Id == workerId);
             Console.WriteLine($"Kedves {worker!.Name}, add meg az általad elvégzett javítás sorszámát!");
-            int ticketId = -1;
+            int ticketId;
             while (true)
             {
                 List<Ticket> unfinishedTickets = context.Tickets.Where(t => t.IsFinished == false).ToList();
@@ -39,7 +39,6 @@ namespace MindigFenyesTicketClosingApp
                 Console.WriteLine("2  ---  Vezetékek");
                 Console.WriteLine("3  ---  Egyéb");
                 int issueId;
-                
                 
                 while (!int.TryParse(Console.ReadLine(), out issueId) || issueId <0 || issueId >3)
                 {
