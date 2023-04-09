@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MindigFenyesDB.Data;
-using MindigFenyesBusinessLogic;
 using MindigFenyesDB.Models;
+using MindigFenyesBusinessLogic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,18 +36,17 @@ namespace MindigFenyesStats
             switch (ComboBox1.SelectedIndex)
             {
                 case 0:
-                    calendar1.Visibility = Visibility.Hidden;
+                    datePicker1.Visibility = Visibility.Hidden;
                     Listbox1.Visibility = Visibility.Visible;
                     Listbox1.ItemsSource = _context.Workers.Select(w => w.Name).ToList();
                     break;
                 case 1:
                     Listbox1.Visibility = Visibility.Hidden;
-                    calendar1.Visibility = Visibility.Visible;
-
+                    datePicker1.Visibility = Visibility.Visible;
                     break;
 
                 case 2:
-                    calendar1.Visibility = Visibility.Hidden;
+                    datePicker1.Visibility = Visibility.Hidden;
                     Listbox1.Visibility = Visibility.Visible;
                     Listbox1.ItemsSource = Enum.GetValues(typeof(Issue)).Cast<Issue>().ToList();
                     break;
@@ -62,27 +61,31 @@ namespace MindigFenyesStats
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var closedTickets = _context.Tickets.Where(t => t.IsFinished).Include(t => t.Worker).Include(t => t.Address).ToList();
-            switch (ComboBox1.SelectedIndex)
+            if (Listbox1.SelectedItem != null || datePicker1.SelectedDate != null)
             {
-                case 0:
-                    string name = Listbox1.SelectedItem.ToString();
+                switch (ComboBox1.SelectedIndex)
+                {
+                    case 0:
+                        string name = Listbox1.SelectedItem.ToString();
 
-                    var source = _context.Tickets.Where(t => t.Worker.Name == name).ToString().ToList();
-                    listBox2.ItemsSource = source;
-                    break;
-                case 1:
-                    Listbox1.Visibility = Visibility.Hidden;
-                    calendar1.Visibility = Visibility.Visible;
+                        var source0 = closedTickets.Where(t => t.Worker.Name == name).ToList();
+                        dataGrid1.ItemsSource = source0;
+                        break;
+                    case 1:
+                        DateTime? dateSelected = datePicker1.SelectedDate;
+                        var source1 = closedTickets.Where(t => t.FinishDate!.Value.Year == dateSelected.Value.Year && t.FinishDate.Value.Month == dateSelected.Value.Month).ToList();
+                        dataGrid1.ItemsSource = source1;
+                        break;
 
-                    break;
+                    case 2:
+                        MindigFenyesDB.Models.Issue issue = (Issue)Listbox1.SelectedItem;
+                        var source2 = closedTickets.Where(t => t.Issue == issue).ToList();
+                        dataGrid1.ItemsSource = source2;
+                        break;
 
-                case 2:
-                    calendar1.Visibility = Visibility.Hidden;
-                    Listbox1.Visibility = Visibility.Visible;
-                    Listbox1.ItemsSource = Enum.GetValues(typeof(Issue)).Cast<Issue>().ToList();
-                    break;
-                default:
-                    break;
+                    default:
+                        break;
+                }
             }
         }
     }
