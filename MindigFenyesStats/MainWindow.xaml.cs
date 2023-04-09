@@ -16,6 +16,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace MindigFenyesStats
 {
@@ -61,6 +63,7 @@ namespace MindigFenyesStats
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             var closedTickets = _context.Tickets.Where(t => t.IsFinished).Include(t => t.Worker).Include(t => t.Address).ToList();
+            List<Ticket> source;
             if (Listbox1.SelectedItem != null || datePicker1.SelectedDate != null)
             {
                 switch (ComboBox1.SelectedIndex)
@@ -68,24 +71,36 @@ namespace MindigFenyesStats
                     case 0:
                         string name = Listbox1.SelectedItem.ToString();
 
-                        var source0 = closedTickets.Where(t => t.Worker.Name == name).ToList();
-                        dataGrid1.ItemsSource = source0;
+                        source = closedTickets.Where(t => t.Worker.Name == name).ToList();
+                        dataGrid1.ItemsSource = source;
                         break;
                     case 1:
                         DateTime? dateSelected = datePicker1.SelectedDate;
-                        var source1 = closedTickets.Where(t => t.FinishDate!.Value.Year == dateSelected.Value.Year && t.FinishDate.Value.Month == dateSelected.Value.Month).ToList();
-                        dataGrid1.ItemsSource = source1;
+                        source = closedTickets.Where(t => t.FinishDate!.Value.Year == dateSelected.Value.Year && t.FinishDate.Value.Month == dateSelected.Value.Month).ToList();
+                        dataGrid1.ItemsSource = source;
                         break;
 
                     case 2:
                         MindigFenyesDB.Models.Issue issue = (Issue)Listbox1.SelectedItem;
-                        var source2 = closedTickets.Where(t => t.Issue == issue).ToList();
-                        dataGrid1.ItemsSource = source2;
+                        source = closedTickets.Where(t => t.Issue == issue).ToList();
+                        dataGrid1.ItemsSource = source;
                         break;
 
                     default:
                         break;
                 }
+            }
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid1.ItemsSource != null)
+            {
+                var export = dataGrid1.ItemsSource;
+                string jsonExport = JsonConvert.SerializeObject(export);
+                string fileName ="..\\..\\..\\"+ DateTime.Now.ToString("yyyymmddhhmmss")+ "-JsonExport.json";
+                File.WriteAllText(fileName, jsonExport);
+                MessageBox.Show($"{fileName} exportálása sikeres volt!");
             }
         }
     }
