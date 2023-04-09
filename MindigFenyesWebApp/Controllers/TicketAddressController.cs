@@ -20,19 +20,19 @@ namespace MindigFenyesWebApp.Controllers
         }
         public IActionResult Submit(TicketAddressViewModel ticketAddressRequest)
         {
-            Address address = new Address
-            {
-                ZipCode = ticketAddressRequest.ZipCode,
-                StreetName = ticketAddressRequest.StreetName,
-                HouseNumber = ticketAddressRequest.HouseNumber
+            Address? address = mfcontext.Addresses.SingleOrDefault(t => t.ZipCode == ticketAddressRequest.ZipCode && t.StreetName.Equals(ticketAddressRequest.StreetName) && t.HouseNumber == ticketAddressRequest.HouseNumber);
 
-            };
             Ticket ticket = new Ticket
             {
-                Address = address,
+                Address = address??= new Address
+                {
+                    ZipCode = ticketAddressRequest.ZipCode,
+                    StreetName = ticketAddressRequest.StreetName,
+                    HouseNumber = ticketAddressRequest.HouseNumber
+                },
                 StartDate = DateTime.Now,
                 IsFinished = false,
-            };
+            }; 
 
             mfcontext.Tickets.Add(ticket);
             mfcontext.SaveChanges();
