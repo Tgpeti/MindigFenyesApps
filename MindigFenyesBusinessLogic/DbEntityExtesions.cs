@@ -12,7 +12,7 @@ namespace MindigFenyesBusinessLogic
     {
         public static string GetIdAndAddress(this Ticket t)
         {
-            return $"[{t.Id,-9}] - {t.Address.ZipCode}, {t.Address.StreetName} {t.Address.HouseNumber}]";
+            return $"[{t.Id,-4}] - {t.Address.ZipCode}, {t.Address.StreetName} {t.Address.HouseNumber} ({t.StartDate.ToShortDateString()})";
         }
         public static string GetAllTicketInfo(this Ticket t)
         {

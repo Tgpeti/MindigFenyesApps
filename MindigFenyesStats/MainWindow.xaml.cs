@@ -98,9 +98,9 @@ namespace MindigFenyesStats
             {
                 var export = dataGrid1.ItemsSource;
                 string jsonExport = JsonConvert.SerializeObject(export);
-                string fileName ="..\\..\\..\\"+ DateTime.Now.ToString("yyyymmddhhmmss")+ "-JsonExport.json";
+                string fileName = "D:\\coding\\01_Webuni\\" + DateTime.Now.ToString("yyyyMMddHHmmss") + "-JsonExport.json";
                 File.WriteAllText(fileName, jsonExport);
-                MessageBox.Show($"{fileName} exportálása sikeres volt!");
+                MessageBox.Show("Az exportálás sikeres volt!");
             }
         }
     }

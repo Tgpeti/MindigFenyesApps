@@ -11,8 +11,8 @@ namespace MindigFenyesTicketClosingApp
         {
             var context = new MindigFenyesContext();
 
-            Console.WriteLine("kérlek add meg az azonosítószámod");
-            int workerId = 0;
+            Console.WriteLine("Kérlek add meg az azonosítószámod!");
+            int workerId;
             List<Worker> workers =context.Workers.ToList();
             while (!int.TryParse(Console.ReadLine(), out workerId) || workers.SingleOrDefault(m => m.Id == workerId) is null)
             {
@@ -26,18 +26,18 @@ namespace MindigFenyesTicketClosingApp
                 List<Ticket> unfinishedTickets = context.Tickets.Where(t => t.IsFinished == false).ToList();
                 while (!int.TryParse(Console.ReadLine(), out ticketId) || unfinishedTickets.SingleOrDefault(m => m.Id == ticketId) is null && ticketId != 0)
                 {
-
                     Console.WriteLine("Rossz sorszámot adtál meg, kérlek próbáld újra!");
                 }
-                if (ticketId ==0)
+                if (ticketId ==0) //kilépés
                 {
                     break;
                 }
                 Console.WriteLine("kérlek add meg a meghibásodás okát:");
-                Console.WriteLine("0  ---  Izzó");
-                Console.WriteLine("1  ---  Foglalat");
-                Console.WriteLine("2  ---  Vezetékek");
-                Console.WriteLine("3  ---  Egyéb");
+                foreach (var value in Enum.GetValues(typeof(Issue)))
+                {
+                    Console.WriteLine($"[{(int)value}] --- {value}");
+                }
+
                 int issueId;
                 
                 while (!int.TryParse(Console.ReadLine(), out issueId) || issueId <0 || issueId >3)
@@ -50,7 +50,8 @@ namespace MindigFenyesTicketClosingApp
                 ticketToClose!.WorkerId = workerId;
                 ticketToClose!.Issue = (Issue)issueId;
                 context.SaveChanges();
-                Console.WriteLine("további hibajegy lezárásához adja meg a sorszámát, vagy kilépés 0 megadásával:");
+                Console.WriteLine($"A {ticketId} sorszámú hibajegy lezárásra került!");
+                Console.WriteLine("további hibajegy lezárásához add meg a sorszámát, vagy kilépés 0 megadásával:");
             }
 
         }

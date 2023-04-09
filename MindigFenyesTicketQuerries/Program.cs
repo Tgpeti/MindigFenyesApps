@@ -11,43 +11,53 @@ namespace MindigFenyesTicketQuerries
     {
         static void Main(string[] args)
         {
-            var context = new MindigFenyesContext();
-            var ticketList = context.Tickets.Where(t => t.IsFinished == false).Include(t => t.Address).ToList();
+            DbQuerryMaker dbqm = new DbQuerryMaker();
+            int numberForQuerry;
+            List<Ticket> result = new List<Ticket>();
 
-            //var ticketsFromZip = OpenTicketsFromDistrict(111);
-            //foreach (var item in ticketsFromZip)
-            //{
-            //    Console.WriteLine($"{item.Id} - {item.Address.ZipCode}, {item.Address.StreetName} {item.Address.HouseNumber}");
-            //}
-            var ticketsOlder = OpenTicketsOlderThan(1);
-            foreach (var item in ticketsOlder)
+            Console.WriteLine("Lekérdezések típusai:");
+            Console.WriteLine("- lekérdezés irányítószámra 4 jegyű szám megadásával");
+            Console.WriteLine("- lekérdezés kerületre 3 jegyű szám megadásával");
+            Console.WriteLine("- lekérdezés x napnál régebbi hibajegyekre 100-nál kisebb szám megadásával");
+            Console.WriteLine("- kilépés 0 megadásával");
+            Console.WriteLine();
+            Console.WriteLine("Add meg a számot a lekérdezéshez!");
+
+            while (true)
             {
-                Console.WriteLine(item.GetIdAndAddress());
+                while (!int.TryParse(Console.ReadLine(), out numberForQuerry))
+                {
+                    Console.WriteLine("Add meg a számot a lekérdezéshez!");
+                }
+                if (numberForQuerry == 0)
+                {
+                    break;
+                }
+                else if (numberForQuerry <100)
+                {
+                   result = dbqm.OpenTicketsOlderThan(numberForQuerry);
+                }
+                else if (numberForQuerry >100 && numberForQuerry < 1000)
+                {
+                    result = dbqm.OpenTicketsFromDistrict(numberForQuerry);
+                }
+                else if (numberForQuerry >=1000 && numberForQuerry < 10000)
+                {
+                    result = dbqm.OpenTicketsFromZIPCode(numberForQuerry);
+                }
+                if (result.Count > 0)
+                {
+                    foreach (var ticket in result)
+                    {
+                        Console.WriteLine(ticket.GetIdAndAddress());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Sajnos nem találtunk a lekérdezésnek megfelelő elemet!");
+                }
+                
             }
-
-            List<Ticket> OpenTicketsFromZIPCode(int zipcode)
-            {
-
-                List<Ticket> results = ticketList.Where(t => t.Address.ZipCode == zipcode).OrderBy(t => t.StartDate).ToList();
-                return results;
-
-            }
-            List<Ticket> OpenTicketsFromDistrict(int zipFirst3)
-            {
-
-                List<Ticket> results = ticketList.Where(t => t.Address.ZipCode >= zipFirst3 * 10 && t.Address.ZipCode < (zipFirst3 + 10) * 10).OrderBy(t => t.StartDate).ToList();
-                return results;
-
-            }
-
-            List<Ticket> OpenTicketsOlderThan(int days) 
-            {
-                List<Ticket> results = ticketList.Where(t => t.StartDate < DateTime.Now.AddDays(days * -1)).OrderBy(t=> t.StartDate).ToList();
-                return results;
-            }
-            
-
-
 
 
         }
